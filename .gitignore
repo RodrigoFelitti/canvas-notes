@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Contexto da IA — local-only (pessoal, não versionar)
+CLAUDE.md
+docs/
