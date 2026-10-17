@@ -23,6 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
+# Python
+__pycache__/
+*.pyc
+.venv/
+
 # Contexto da IA — local-only (pessoal, não versionar)
 CLAUDE.md
 docs/
