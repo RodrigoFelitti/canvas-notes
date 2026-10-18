@@ -31,3 +31,4 @@ __pycache__/
 # Contexto da IA — local-only (pessoal, não versionar)
 CLAUDE.md
 docs/
+backend/data/
