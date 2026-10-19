@@ -1,75 +1,59 @@
-# React + TypeScript + Vite
+# canvas-notes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A local-first, infinite-canvas notes app (in the spirit of Mural / Excalidraw), built as
+a personal knowledge base. Notes are stored as plain files on disk, so they can later be
+consumed by a local AI (RAG).
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Frontend:** React + TypeScript + Vite — canvas via [React Flow](https://reactflow.dev),
+  state via [Zustand](https://zustand.docs.pmnd.rs)
+- **Backend:** Python + FastAPI — serves and persists the canvas as a JSON file on disk
+- **Dev:** a single `npm run dev` runs both, via `concurrently` + a Vite proxy
 
-## React Compiler
+> Note: the dev scripts currently assume Windows paths for the Python virtual environment.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Requirements
 
-## Expanding the ESLint configuration
+- Node.js
+- Python 3.x
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Setup
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Run once after cloning.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Frontend dependencies (the repo root is only the dev orchestrator):
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm install --prefix frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Backend (Python virtual environment):
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+python -m venv backend/.venv
+# Windows
+backend\.venv\Scripts\python -m pip install -r backend/requirements.txt
+# macOS/Linux
+# backend/.venv/bin/python -m pip install -r backend/requirements.txt
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Run
 
+```bash
+npm run dev
+```
+
+- Frontend: http://localhost:5173
+- Backend: http://localhost:8000 (interactive API docs at `/docs`)
+
+The canvas is persisted to `backend/data/canvas.json`.
+
+## Structure
+
+```
+frontend/      React app (canvas, store, api)
+backend/       FastAPI app (routes, storage)
+package.json   root orchestration (the single `npm run dev`)
 ```
