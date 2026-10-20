@@ -24,6 +24,7 @@ export type CanvasState = {
   onNodesChange: OnNodesChange<CanvasNode>;
   onEdgesChange: OnEdgesChange;
   onConnect: OnConnect;
+  addNode: (node: CanvasNode) => void;
   setNodes: (nodes: CanvasNode[]) => void;
   setEdges: (edges: Edge[]) => void;
 };
@@ -45,6 +46,9 @@ const useCanvasStateStore = create<CanvasState>((set, get) => ({
   },
   setEdges: (edges) => {
     set({ edges });
+  },
+  addNode: (node) => {
+    set({ nodes: get().nodes.concat(node) });
   },
 }));
 
