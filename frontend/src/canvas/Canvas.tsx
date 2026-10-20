@@ -37,6 +37,7 @@ export function Canvas() {
   return (
     <div onDoubleClick={handleDoubleClick} style={{ width: '100%', height: '100%' }}>
       <ReactFlow
+        nodeOrigin={[0.5, 0.5]}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
