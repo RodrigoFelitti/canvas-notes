@@ -7,6 +7,9 @@ import {
 import { type MouseEvent } from 'react';
 import '@xyflow/react/dist/style.css';
 import useCanvasStateStore from '../store/CanvasStore'
+import { TextNode } from '../nodes/TextNode/TextNode';
+
+const nodeTypes = { textNode: TextNode};
 
 export function Canvas() {
 
@@ -26,9 +29,12 @@ export function Canvas() {
 
     const newNode = {
       id: crypto.randomUUID(),
-      position: position,
-      data: {label: 'New node'}
-    }
+      type: 'textNode',
+      position: { x: position.x - 90, y: position.y - 25 },
+      width: 180,
+      height: 50,
+      data: { label: 'New node' },
+    };
     
     addNode(newNode)
   }
@@ -37,7 +43,8 @@ export function Canvas() {
   return (
     <div onDoubleClick={handleDoubleClick} style={{ width: '100%', height: '100%' }}>
       <ReactFlow
-        nodeOrigin={[0.5, 0.5]}
+        nodeTypes={nodeTypes}
+        nodeOrigin={[0, 0]}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}

@@ -27,6 +27,8 @@ export type CanvasState = {
   addNode: (node: CanvasNode) => void;
   setNodes: (nodes: CanvasNode[]) => void;
   setEdges: (edges: Edge[]) => void;
+  updateNodeText: (id: string, text: string) => void;
+  setNodeHeight: (id: string, height: number) => void;
 };
 
 const useCanvasStateStore = create<CanvasState>((set, get) => ({
@@ -50,6 +52,18 @@ const useCanvasStateStore = create<CanvasState>((set, get) => ({
   addNode: (node) => {
     set({ nodes: get().nodes.concat(node) });
   },
+  updateNodeText: (id, text) =>
+    set({
+      nodes: get().nodes.map((node) =>
+        node.id === id ? { ...node, data: { ...node.data, label: text } } : node,
+      ),
+    }),
+  setNodeHeight: (id, height) =>
+    set({
+      nodes: get().nodes.map((node) =>
+        node.id === id && node.height !== height ? { ...node, height } : node,
+      ),
+    }),
 }));
 
 export default useCanvasStateStore;
