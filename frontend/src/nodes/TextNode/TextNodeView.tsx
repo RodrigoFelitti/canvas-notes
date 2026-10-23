@@ -27,11 +27,12 @@ const resizeControl: CSSProperties = {
 };
 
 const resizeHandle: CSSProperties = {
-  width: 6,
-  height: 24,
-  borderRadius: 4,
-  background: '#9ca3af',
+  width: 3,
+  height: 22,
+  borderRadius: 2,
+  background: '#222',
   boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.9)',
+  transform: 'translate(-5%, -43%)',
 };
 
 const textEditor: CSSProperties = {
@@ -74,14 +75,9 @@ export function TextNodeView({
       }}
     >
       {selected && (
-        <>
-          <NodeResizeControl position="left" minWidth={120} style={resizeControl}>
-            <div style={resizeHandle} />
-          </NodeResizeControl>
-          <NodeResizeControl position="right" minWidth={120} style={resizeControl}>
-            <div style={resizeHandle} />
-          </NodeResizeControl>
-        </>
+        <NodeResizeControl position="right" minWidth={120} style={resizeControl}>
+          <div style={resizeHandle} />
+        </NodeResizeControl>
       )}
       <Handle type="target" position={Position.Top} />
       <div ref={contentRef}>

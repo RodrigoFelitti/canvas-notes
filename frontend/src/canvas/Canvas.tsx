@@ -43,6 +43,7 @@ export function Canvas() {
   return (
     <div onDoubleClick={handleDoubleClick} style={{ width: '100%', height: '100%' }}>
       <ReactFlow
+        deleteKeyCode={['Backspace', 'Delete']}
         nodeTypes={nodeTypes}
         nodeOrigin={[0, 0]}
         nodes={nodes}
