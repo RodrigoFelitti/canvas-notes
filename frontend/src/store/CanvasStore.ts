@@ -11,11 +11,7 @@ import {
 } from '@xyflow/react';
 import { type CanvasNode } from '../types/types';
 
-const exampleCanvasNodes: Node[] = [
-  { id: '1', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
-  { id: '2', position: { x: 250, y: 120 }, data: { label: 'Node 2' } },
-];
-
+const exampleCanvasNodes: Node[] = [];
 const exampleEdges: Edge[] = [];
 
 export type CanvasState = {
