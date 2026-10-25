@@ -15,10 +15,8 @@ export function useCanvasPersistence() {
   useEffect(() => {
     loadCanvas()
       .then((canvas) => {
-        if (canvas.nodes.length > 0 || canvas.edges.length > 0) {
-          setNodes(canvas.nodes);
-          setEdges(canvas.edges);
-        }
+        setNodes(canvas.nodes);
+        setEdges(canvas.edges);
         hasLoaded.current = true;
       })
       .catch((error) => console.error('Failed to load canvas', error));
